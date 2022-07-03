@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>{{term}} Foogle Search</title>
+
+        <link rel="icon" type="image/x-icon" href="static/images/favicon/favicon.ico">
+        <link rel="shortcut icon" type="image/png" href="static/images/favicon/favicon-32x32.png">
+        <link rel="apple-touch-icon" href="static/images/favicon/apple-touch-icon.png">
+        <link rel="android-chrome-icon" type="image/png" href="static/images/favicon/android-chrome-512x512.png">
+
+        <meta name="description" content="Search the web for sites and images.">
+        <meta name="keywords" content="Search engine, doogle, websites">
+        <meta name="author" content="Zepher Ashe">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" /> -->
+        <link rel="stylesheet" type="text/css" href="static/css/fancybox/3.3.5/jquery.fancybox.min.css">
+        <link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+        <script src="static/js/jquery-3.3.1.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
+
+	<style>
+        ul {
+		    list-style-type: none;
+	}
+	</style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+                        <div class="headerContent">
+
+                                <div class="logoContainer">
+                                        <a href="/">
+                                                <img src="static/img/doogleLogo.png">
+                                        </a>
+                                </div>
+
+                                <div class="searchContainer">
+                                        <form action="search" method="GET">
+                                                <div class="searchBarContainer">
+                                                        <input type="hidden" name="type" value="{{type}}">
+                                                        <input class="searchBox" type="text" name="term" value="{{term}}" autocomplete="off">
+                                                        <button class="searchButton">
+                                                                <img src="static/img/icons/search.png">
+                                                        </button>
+                                                </div>
+                                        </form>
+                                </div>
+                        </div>
+
+                       <div class="tabsContainer">
+                                <ul class="tabList">
+                                        {% if type =="sites" %}
+                                        <li class="active">
+                                         {% else %}
+                                        <li>
+                                         {% endif %}
+                                                <a href='search?term={{term}}&type=sites'>
+                                                        Sites
+                                                </a>
+                                        </li>
+                                        {% if type =="images" %}
+                                        <li class="active">
+                                         {% else %}
+                                        <li>
+                                         {% endif %}
+                                                <a href='search?term={{term}}&type=images'>
+                                                        Images
+                                                </a> not yet
+                                        </li>
+                                </ul>
+                        </div>
+                </div>
+
+                <div class="mainResultsSection">
+                        <p class='resultsCount'>{{result|count}} results found</p>
+			<ul>
+                        {% for s in result %}
+			<li>
+				<div>
+					<h4>	<a href="static/web/viewer.html?pdf=pdf/{{files[s[0]|int]}}">{{files[s[0]|int]}} </a></h4>
+							<i> Occurences : {{s[1]|int}} </i>
+			        </div>
+			</li>
+                        {% endfor %}
+
+                        {% for s in images %}
+                        {% endfor %}
+
+
+                <div class="paginationContainer">
+                        <div class="pageButtons">
+                                <div class="pageNumberContainer">
+                                        <img src="static/images/pageStart.png">
+                                </div>
+
+                                <div class="pageNumberContainer">
+                                        <div id="pageEndContainer">
+                                                <img src="static/images/pageEnd.png">
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+    </div>
+        <script src="static/js/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+        <script src="static/js/masonry/4.2.2/masonry.pkgd.min.js"></script>
+        <script type="text/javascript" src="static/js/script.js"></script>
+        <!--
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+        -->
+</body>
+</html>
+

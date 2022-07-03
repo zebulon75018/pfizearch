@@ -1,0 +1,122 @@
+<html>
+</head>
+     <link rel="icon" type="image/x-icon" href="static/images/favicon/favicon.ico">
+        <link rel="shortcut icon" type="image/png" href="static/images/favicon/favicon-32x32.png">
+        <link rel="apple-touch-icon" href="static/images/favicon/apple-touch-icon.png">
+        <link rel="android-chrome-icon" type="image/png" href="static/images/favicon/android-chrome-512x512.png">
+
+        <meta name="description" content="Search the web for sites and images.">
+        <meta name="keywords" content="Search engine, doogle, websites">
+        <meta name="author" content="Zepher Ashe">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" /> -->
+        <link rel="stylesheet" type="text/css" href="static/css/fancybox/3.3.5/jquery.fancybox.min.css">
+        <link rel="stylesheet" type="text/css" href="static/css/style.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+        <script src="static/jquery-2.2.4.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
+
+        <style>
+        ul {
+                    list-style-type: none;
+        }
+        </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+                        <div class="headerContent">
+
+                                <div class="logoContainer">
+                                        <a href="/">
+                                                <img src="static/img/doogleLogo.png">
+                                        </a>
+                                </div>
+			</div>
+	</div>
+	<div class="container">
+<div class="card">
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Description of table found in PDF</h5>
+    <p class="card-text">This is the table extract of pdf , and show number of rows, columns , types and stats for columns  </p>
+  </div>
+
+		{% for s in d %}
+		<section>
+			<div>
+		Table extract from :
+		<a href="/static/web/viewer.html?pdf=web/pdf/{{s|replace(".csv",".pdf")|replace(" ","%20")}}" > {{s|replace(".csv",".pdf")}} </a>
+			</div>
+			<div>
+
+			</div>
+		</section>
+		<button type="button" class="btn btn-primary">
+			<a href="/stat/?file={{s|replace(" ","%20")}}" style="color:white" > Visualize:</a>   Nb Rows <span class="badge badge-light">{{d[s]["row_count"]}}</span>
+                </button>
+	<table  class="table  table-striped  table-bordered " >
+		   <tr>
+		{% for  t in  d[s] %}
+		   {% if t !="row_count" %}
+			   <td>
+				   <b>{{d[s][t]["column_name"]}}</b>
+		    <i>{{d[s][t]["column_stats"]["type"]}}</i>
+			   </td>
+		    {% endif %}
+	        {% endfor %}
+		   </tr>
+		   <tr>
+		{% for  t in  d[s] %}
+		   {% if t !="row_count" %}
+			   <td>
+                               <span class="badge badge-info">Column's stats</span>
+				   <ul>
+					   <li><b>null</b>:	{{d[s][t]["column_stats"]["nulls"]}}
+					   <li><b>unique</b>: {{d[s][t]["column_stats"]["unique"]}}
+				{% if d[s][t]["column_stats"]["min"] is not none %}		  <li><b>min</b>: {{d[s][t]["column_stats"]["min"]}} {% endif %}
+				{% if d[s][t]["column_stats"]["max"] is not none %}   <li><b>max</b>: {{d[s][t]["column_stats"]["max"]}}         {% endif %}
+				{% if d[s][t]["column_stats"]["sum"] is not none %}	   <li><b>sum</b>: {{d[s][t]["column_stats"]["sum"]}}        {% endif %}
+				{% if d[s][t]["column_stats"]["mean"] is not none %}   <li><b>mean</b>: {{d[s][t]["column_stats"]["mean"]}}      {% endif %}
+				{% if d[s][t]["column_stats"]["median"] is not none %}   <li><b>median</b>: {{d[s][t]["column_stats"]["median"]}}{% endif %}
+				{% if d[s][t]["column_stats"]["stdev"] is not none %}     <li><b>stdev</b>: {{d[s][t]["column_stats"]["stdev"]}} {% endif %}
+					   <li><b>len</b>: {{d[s][t]["column_stats"]["len"]}}
+				   </ul>
+				 </td>
+		    {% endif %}
+	        {% endfor %}
+		   </tr>
+		   <tr>
+		{% for  t in  d[s] %}
+		   {% if t !="row_count" %}
+			   <td>
+                            <!-- index freq --!>
+		            {% if t !="0" %}
+				   Freq : 
+				   <ul class="list-group">
+		        {% for f in d[s][t]["column_stats"]["freq"]%}
+			  <li class="list-group-item d-flex justify-content-between align-items-center">
+				  <b>{{f["value"]}}</b> :
+				  <span class="badge badge-primary badge-pill"> {{ f["count"]}} </span>
+				  </li>
+		        {%endfor%}
+				   </ul>
+		          {% endif %}
+			</td>
+		    {% endif %}
+	        {% endfor %}
+		   </tr>
+
+		</table>
+	<hr>
+		{% endfor %}
+</div> <!-- card header -->
+	</div >
+	</div>
+	</body>
+</html>
