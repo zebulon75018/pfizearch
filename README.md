@@ -23,3 +23,7 @@ Install all components:
 * Take a cofee , or go outside see friends.
 
 * Call your mother or familly to have news.
+
+*python indexing.py 
+
+* python apppdf.py 
