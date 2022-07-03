@@ -21,3 +21,5 @@ Install all components:
 * python pdf2html.py 
 
 * Take a cofee , or go outside see friends.
+
+* Call your mother or familly to have news.
