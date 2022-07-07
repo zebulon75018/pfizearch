@@ -27,3 +27,9 @@ Install all components:
 *python indexing.py 
 
 * python apppdf.py 
+
+
+Reference and article : 
+https://boyter.org/2010/08/build-vector-space-search-engine-python/
+
+https://stevenloria.com/tf-idf/
